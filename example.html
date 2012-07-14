@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Example</title>
+<script type="text/javascript" src="underscore.js"></script>
+<script type="text/javascript" src="jumper.js"></script>
+</head>
+<body>
+	<h1>Results in the console</h1>
+	<script type="text/javascript">
+		var processExemple = new Jumper(
+				function(a,b,c){
+					// If you want to using the once function, you have to give a name for the function
+					// like once and onceInAll
+
+					this.onceInAll('t11', function(){
+						console.log('ALL 1-1'); // Just run once even you back to this step
+					});
+					console.log(1);
+					this.once('t12', function(){
+						console.log('Step 1-2' +a +b+c); // Run once every time go to this step
+					});
+				}
+				,function(e,f,g){
+					console.log(2);
+					this.once('t22',function(){
+						console.log('Step 2-1'+e+f+g);
+					});
+				}
+				,function(){
+					console.log(3);
+				}
+				,function(){
+					console.log(4);
+				}
+				,function(){
+					console.log(5);
+				}).go(1,2,3).go(4,5,6).go().go().go().back().back().back(4,5,6).action().back(1,2,3).action();
+				// Here you can pass the args with go(),back(),action() for functions
+	</script>
+</body>
+</html>
