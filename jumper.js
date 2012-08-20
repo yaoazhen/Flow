@@ -2,7 +2,7 @@
 ;(function(name, factory){
 	
 	hasDefine = typeof define === 'function' && define.amd,
-	hasExports = typeof moudule !== 'undefined' && moudule.exports;
+	hasExports = typeof module !== 'undefined' && module.exports;
 
 	if(hasDefine){/*AMD Module*/
 		define(['underscore'], factory);
@@ -11,7 +11,7 @@
 		// Node. Does not work with strict CommonJS, but
         // only CommonJS-like enviroments that support module.exports,
         // like Node.
-		moudule.exports = factory(require('underscore'));
+		module.exports = factory(require('underscore'));
 	}
 	else{
 		/*Assign to common namespaces or simply the global object (window)*/
