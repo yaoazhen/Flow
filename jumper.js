@@ -1,7 +1,7 @@
 // ## Multiple environment support
 ;(function(name, factory){
 	
-	hasDefine = typeof define === 'function' && define.amd,
+	var hasDefine = typeof define === 'function' && define.amd,
 	hasExports = typeof module !== 'undefined' && module.exports;
 
 	if(hasDefine){/*AMD Module*/
