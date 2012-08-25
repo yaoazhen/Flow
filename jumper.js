@@ -48,24 +48,22 @@
 		this.index = -1;
 		this.steps=[];
 
-		this.add.apply(this, arguments);
+		if(arguments.length > 0){
+			this.add.apply(this, arguments);
+		}
+
 		this.go = _.bind(this.go, this);
 		this.back = _.bind(this.back, this);
 		this.action = _.bind(this.action, this);
 		this.jump = _.bind(this.jump, this);
 		this.onceInAll = _.bind(this.onceInAll, this);
 		this.once = _.bind(this.once, this);
-
 	};
 
 	var _createTaskInProcess = function(process, taskName, func){
 		if(process && !process.tasks){
 			process.tasks=[];
 		}
-
-		// var task = _createTask();
-		// task.func = func;
-		// process.tasks.push(task);
 
 		var task = _.find(process.tasks, function(item){
 			return item.taskName === taskName;
@@ -154,9 +152,9 @@
 	};
 	// Jump to special process with index
 	p.jump = function(index){
-		if(index >-1 && index < this.steps.length){
+        index--;
+		if(index >= -1 && index < this.steps.length){
 			this.index = index;
-			this.action.apply(this, slice.call(arguments, 1));
 		}
 		return this;
 	};
