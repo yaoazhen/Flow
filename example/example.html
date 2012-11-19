@@ -19,13 +19,13 @@
 					});
 					console.log(1);
 					this.once('t12', function(){
-						console.log('Step 1-2' +a +b+c); // Run once every time go to this step
+						console.log('Step 1-2 param:' +a +b+c); // Run once every time go to this step
 					});
 				}
 				,function(e,f,g){
 					console.log(2);
 					this.once('t22',function(){
-						console.log('Step 2-1'+e+f+g);
+						console.log('Step 2-1 param:'+e+f+g);
 					});
 				}
 				,function(){
