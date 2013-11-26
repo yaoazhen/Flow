@@ -1,10 +1,12 @@
 {
-  "name": "Jumper",
-  "version": "0.0.1",
+  "name": "Flow",
+  "version": "0.5.0",
   "dependencies": {
-    "underscore":"*"
+    "underscore":"*",
+    "jquery": "*"
   },
   "devDependencies": {
-    "buster": "*"
+    "mocha": "*",
+    "grunt-contrib-concat":"~0.3.0"
   }
 }
