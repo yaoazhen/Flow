@@ -315,9 +315,8 @@
         return i === this.steps.length;
       };
 
-
       //Attach properties to exports.
-      exports.Flow = Flow;
+      return exports.Flow = Flow;
     }
   )
   ;

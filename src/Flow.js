@@ -393,7 +393,7 @@
 
 
       //Attach properties to exports.
-      exports.Flow = Flow;
+      return exports.Flow = Flow;
     }
   )
   ;
