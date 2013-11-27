@@ -1,7 +1,7 @@
 ;
 (function (define) {
 
-  define('Flow', function (require, exports) {
+  define(function (require, exports) {
 
       //If have dependencies, get them here
       var _ = require('underscore');
@@ -398,7 +398,7 @@
   )
   ;
 
-})(typeof define === 'function' && define.amd ? define : function (id, factory) {
+})(typeof define === 'function' && define.amd ? define : function (factory) {
     if (typeof exports !== 'undefined') {
       //commonjs
       factory(require, exports);
