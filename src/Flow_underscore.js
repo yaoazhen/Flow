@@ -243,6 +243,10 @@
         return this;
       };
 
+      p.reset = function () {
+        this.index = -1;
+      };
+
       // Run this step and keep current process
       p.action = function () {
 
@@ -290,10 +294,10 @@
 
       // Go to special process with index
       p.goto = p.jump = function (index) {
-        index--;
 
-        if (index >= -1 && index < this.steps.length) {
+        if (index > -1 && index < this.steps.length) {
           this.index = index;
+          this.action.apply(this, arguments);
         }
 
         return this;
@@ -333,7 +337,7 @@
       var mapping = {"underscore": "_"};
 
       factory(function (value) {
-        if(mapping[value]){
+        if (mapping[value]) {
           value = mapping[value];
         }
         return window[value];

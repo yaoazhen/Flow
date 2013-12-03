@@ -7,32 +7,33 @@
       var _ = require('underscore');
 
       var undef = undefined;
-      var ArrayProto     = Array.prototype;
-      var ObjProto       = Object.prototype;
-      var FuncProto      = Function.prototype;
-      var slice          = Array.prototype.slice;
+      var ArrayProto = Array.prototype;
+      var ObjProto = Object.prototype;
+      var FuncProto = Function.prototype;
+      var slice = Array.prototype.slice;
       var hasOwnProperty = ObjProto.hasOwnProperty;
-      var nativeSome     = ArrayProto.some;
-      var nativeBind     = FuncProto.bind;
-      var nativeForEach  = ArrayProto.forEach;
+      var nativeSome = ArrayProto.some;
+      var nativeBind = FuncProto.bind;
+      var nativeForEach = ArrayProto.forEach;
       var noop = function () {
       };
 
-      var isFunction = function(obj) {
-          return typeof obj === 'function';
-        };
+      var isFunction = function (obj) {
+        return typeof obj === 'function';
+      };
 
       // Establish the object that gets returned to break out of a loop iteration.
       var breaker = {};
       // Reusable constructor function for prototype setting.
-      var ctor = function(){};
+      var ctor = function () {
+      };
 
-      var bind = function(func, context){
+      var bind = function (func, context) {
         var bound, args;
         if (func.bind === nativeBind && nativeBind) return nativeBind.apply(func, slice.call(arguments, 1));
         if (!isFunction(func)) throw new TypeError;
         args = slice.call(arguments, 2);
-        return bound = function() {
+        return bound = function () {
           if (!(this instanceof bound)) return func.apply(context, args.concat(slice.call(arguments)));
           ctor.prototype = func.prototype;
           var self = new ctor;
@@ -45,17 +46,17 @@
       // The cornerstone, an `each` implementation, aka `forEach`.
       // Handles objects with the built-in `forEach`, arrays, and raw objects.
       // Delegates to **ECMAScript 5**'s native `forEach` if available.
-      var each = function(obj, iterator, context){
-        if(obj == null) return;
-        if(nativeForEach && obj.forEach === nativeForEach){
+      var each = function (obj, iterator, context) {
+        if (obj == null) return;
+        if (nativeForEach && obj.forEach === nativeForEach) {
           obj.forEach(iterator, context);
         }
-        else if(obj.length === +obj.length){
+        else if (obj.length === +obj.length) {
           for (var i = 0, l = obj.length; i < l; i++) {
             if (iterator.call(context, obj[i], i, obj) === breaker) return;
           }
         }
-        else{
+        else {
           for (var key in obj) {
             if (hasOwnProperty.call(obj, key)) {
               if (iterator.call(context, obj[key], key, obj) === breaker) return;
@@ -66,21 +67,21 @@
 
       // Determine if at least one element in the object matches a truth test.
       // Delegates to **ECMAScript 5**'s native `some` if available.
-      var some = function(obj, iterator, context){
+      var some = function (obj, iterator, context) {
         var result = false;
         if (obj == null) return result;
         if (nativeSome && obj.some === nativeSome) return obj.some(iterator, context);
 
-        each(obj, function(value, index, list) {
+        each(obj, function (value, index, list) {
           if (result || (result = iterator.call(context, value, index, list))) return breaker;
         });
         return !!result;
       };
 
       // Return the first value which passes a truth test.
-      var find = function(obj, iterator, context) {
+      var find = function (obj, iterator, context) {
         var result;
-        some(obj, function(value, index, list) {
+        some(obj, function (value, index, list) {
           if (iterator.call(context, value, index, list)) {
             result = value;
             return true;
@@ -319,6 +320,10 @@
         return this;
       };
 
+      p.reset = function () {
+        this.index = -1;
+      };
+
       // Run this step and keep current process
       p.action = function () {
 
@@ -366,10 +371,10 @@
 
       // Go to special process with index
       p.goto = p.jump = function (index) {
-        index--;
 
-        if (index >= -1 && index < this.steps.length) {
+        if (index > -1 && index < this.steps.length) {
           this.index = index;
+          this.action.apply(this, arguments);
         }
 
         return this;
@@ -410,7 +415,7 @@
       var mapping = {"underscore": "_"};
 
       factory(function (value) {
-        if(mapping[value]){
+        if (mapping[value]) {
           value = mapping[value];
         }
         return window[value];
