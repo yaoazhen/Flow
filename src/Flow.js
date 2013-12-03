@@ -322,6 +322,14 @@
 
       p.reset = function () {
         this.index = -1;
+
+        each(this.steps, function (step) {
+          if (isFlow(step)) {
+            step.reset();
+          }
+        });
+
+        return this;
       };
 
       // Run this step and keep current process
