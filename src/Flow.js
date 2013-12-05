@@ -3,9 +3,6 @@
 
   define(function (require, exports) {
 
-      //If have dependencies, get them here
-      var _ = require('underscore');
-
       var undef = undefined;
       var ArrayProto = Array.prototype;
       var ObjProto = Object.prototype;
@@ -420,11 +417,9 @@
       //the code does not have dependencies, or
       //dependencies fit the call pattern below.
 
-      var mapping = {"underscore": "_"};
-
       factory(function (value) {
-        if (mapping[value]) {
-          value = mapping[value];
+        if (shim[value]) {
+          value = shim[value];
         }
         return window[value];
       }, (window));
